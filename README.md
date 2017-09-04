@@ -10,4 +10,4 @@ This is due to this navigation method being referenced in the official react-nat
 
 This version of the "Manager App" is now at the state of the App Stephen makes at the end of the course.
 
-It implements FlatList instead of the ListView, it implements the react-navigation package and in the Edit/Create employee section, I took a different approach than the one Stephen takes, but if works just the same. 
+It implements FlatList instead of the ListView, it implements the react-navigation package and in the Edit/Create employee section, I took a different approach than the one Stephen takes, but it works just the same. 
