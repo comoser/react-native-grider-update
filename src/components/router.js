@@ -12,6 +12,10 @@ export const AppNavigator = StackNavigator({
     [ROUTES.LoginScreen]: { screen: LoginScreen },
     [ROUTES.EmployeeListScreen]: { screen: EmployeeListScreen },
     [ROUTES.EmployeeEditScreen]: { screen: EmployeeEditScreen },
+}, {
+    cardStyle: {
+        backgroundColor: '#fff'
+    },
 });
 export const { router } = AppNavigator;
 export const routerInitialState = router.getStateForAction(

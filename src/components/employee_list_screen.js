@@ -1,7 +1,11 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { connect } from 'react-redux';
+import { FlatList } from 'react-native';
 import { ROUTES } from '../components/router';
-import { Button } from '../components/common';
+import { Button, Spinner } from '../components/common';
+import ListItem from './list_item';
+import { employeesFetch } from '../actions';
 
 class EmployeeListScreen extends Component {
     static navigationOptions = ({ navigation, screenProps }) => {
@@ -14,20 +18,43 @@ class EmployeeListScreen extends Component {
             headerRight: (
                 <Button
                     onPress={() => navigate(ROUTES.EmployeeEditScreen)}
-                    outline={false}>
+                    btnStyle={{ borderWidth: 0 }}>
                     Add
                 </Button>
             ),
         }
     };
 
-    render() {
+    keyExtractor = (item) => item.name;
+
+    componentDidMount() {
+        this.props.employeesFetch();
+    }
+
+    renderRow({ item }) {
         return (
-            <View>
-                <Text>ola</Text>
-            </View>
+            <ListItem employee={item} {...this.props}/>
+        );
+    }
+
+    render() {
+        if (!this.props.employees.length) return <Spinner size="large"/>;
+        return (
+            <FlatList
+                data={this.props.employees}
+                keyExtractor={this.keyExtractor}
+                renderItem={this.renderRow.bind(this)}
+            />
         );
     }
 }
 
-export default EmployeeListScreen;
+function mapStateToProps({ employees }) {
+    return {
+        employees: _.map(employees, (value, uid) => {
+            return { ...value, uid };
+        }),
+    };
+}
+
+export default connect(mapStateToProps, { employeesFetch })(EmployeeListScreen);
